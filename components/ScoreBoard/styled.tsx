@@ -7,13 +7,13 @@ export const ScoreBoardContainer = styled.div`
     width: 100%;
 `
 
-export const ScoreBoardTable = styled.table<{ competitionsNum: number }>`
+export const ScoreBoardTable = styled.table<{ competitionsNum: number, displaySocials: boolean }>`
     display: grid;    
     border-collapse: collapse;
     grid-template-columns: 
         minmax(150px, 0.2fr)
         minmax(150px, 0.5fr) 
-        minmax(150px, 0.4fr) 
+        ${(props) => props.displaySocials ? `minmax(150px, 0.4fr) ` : ''}
         ${(props) => `minmax(100px, 0.1fr) `.repeat(props.competitionsNum)}  
         minmax(150px, 0.2fr);
 
@@ -22,7 +22,7 @@ export const ScoreBoardTable = styled.table<{ competitionsNum: number }>`
             grid-template-columns: 
                 minmax(80px, 0.1fr)
                 minmax(100px, 0.4fr) 
-                minmax(100px, 0.2fr) 
+                ${(props) => props.displaySocials ? `minmax(100px, 0.2fr) ` : ''}
                 ${(props) => `minmax(80px, 0.1fr) `.repeat(props.competitionsNum)}  
                 minmax(100px, 0.1fr);
         }

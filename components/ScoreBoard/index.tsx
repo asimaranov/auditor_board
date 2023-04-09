@@ -9,18 +9,20 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
     const [auditorResults, setAuditorResults] = useAuditorsResults();
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
 
-    const competitionsNum = typeof window !== "undefined" ? Math.min(extended ? (window.innerWidth > 800 ? 7 : 3) : 0, competitionIds.length) : 0;
-    
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 800;
+    const competitionsNum = Math.min(isMobile ? 3 : 7, competitionIds.length);
+    const hideSocials = extended && isMobile;
+
     return (
         <ScoreBoardContainer>
             <p>{title}</p>
             <SbtInfoUpdater />
-            <ScoreBoardTable competitionsNum={competitionsNum}>
+            <ScoreBoardTable competitionsNum={extended ? competitionsNum : 0} displaySocials={!hideSocials}>
                 <thead style={{ display: 'contents' }}>
                     <ScoreBoardHeader>
                         <ScoreBoardHeaderCell>#</ScoreBoardHeaderCell>
                         <ScoreBoardHeaderCell>Address</ScoreBoardHeaderCell>
-                        <ScoreBoardHeaderCell>Socials</ScoreBoardHeaderCell>
+                        {!hideSocials && (<ScoreBoardHeaderCell>Socials</ScoreBoardHeaderCell>)}
                         {extended && competitionIds?.slice(-competitionsNum).map(x => (<ScoreBoardHeaderCell>{x}</ScoreBoardHeaderCell>))}
                         <ScoreBoardHeaderCell>Total</ScoreBoardHeaderCell>
                     </ScoreBoardHeader>
@@ -29,7 +31,7 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
                     {auditorResults?.slice().sort((x, y) => y.total - x.total).map((x, i) => (<ScoreBoardHeader key={i}>
                         <ScoreBoardCell>{getMedal(i)} {i + 1}</ScoreBoardCell>
                         <ScoreBoardCell><AuditorLink address={x.address} /></ScoreBoardCell>
-                        <ScoreBoardCell>{<div>N/A</div>}</ScoreBoardCell>
+                        {!hideSocials && (<ScoreBoardCell>{<div>N/A</div>}</ScoreBoardCell>)}
 
                         {extended && competitionIds?.slice(-competitionsNum).map((y, i) => {
                             const foundUserCompetition = x.competitions.find(e => e.id == y);
