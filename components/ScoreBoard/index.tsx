@@ -8,7 +8,8 @@ import { AuditorLink } from 'components/AuditorLink.tsx';
 export const ScoreBoard = ({ extended, title }: { extended: boolean, title: string }) => {
     const [auditorResults, setAuditorResults] = useAuditorsResults();
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
-    const competitionsNum = Math.min(extended ? (window.innerWidth > 800 ? 7 : 3) : 0, competitionIds.length);
+
+    const competitionsNum = typeof window !== "undefined" ? Math.min(extended ? (window.innerWidth > 800 ? 7 : 3) : 0, competitionIds.length) : 0;
     
     return (
         <ScoreBoardContainer>
