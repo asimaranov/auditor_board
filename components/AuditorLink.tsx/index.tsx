@@ -4,6 +4,6 @@ import Link from "next/link"
 
 export const AuditorLink = ({address}: {address: string}) => {
     return (<AuditorLinkContainer>
-        <Link href="/auditor/[address]" as={`/auditor/${address}`}>
+        <Link href={{pathname: "/auditor/[address]", query: {address}}} as={`/auditor/${address}`}>
 {formatAddress(address)}</Link></AuditorLinkContainer>)
 }
