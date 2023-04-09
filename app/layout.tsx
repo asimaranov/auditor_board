@@ -6,13 +6,7 @@ import { getDefaultProvider, providers } from 'ethers';
 import { WagmiConfig, createClient } from 'wagmi';
 import { Provider } from 'react-redux';
 import { store } from '@state/state';
-
-export const provider = new providers.JsonRpcProvider('https://polygon-mainnet.g.alchemy.com/v2/jGtKje8PmSzYD1f4DgXoS3FSp_cxbzR7');
-export const matic = {
-  name: 'matic',
-  chainId: 137,
-  _defaultProvider: (providers: any) => provider
-}
+import { matic } from '@utils/utils';
 
 const client = createClient({
   autoConnect: true,

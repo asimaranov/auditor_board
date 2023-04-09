@@ -1,10 +1,10 @@
 'use client'
 import { SBT_ABI } from '@abis/SBT.js';
 import { BigNumber, ethers } from 'ethers';
-import { provider } from 'app/layout';
 import { useEffect, useState } from 'react';
 import { IAuditorResult, ICompetitionTop } from '@state/reducer';
 import { useAuditorsResults, useCompetitionIds, useCompetitionTops } from '@state/hooks';
+import { provider } from '@utils/utils';
 
 const sbtContract = new ethers.Contract(
     '0x45782146489271c135969c9d58fe5c73d3445808',
