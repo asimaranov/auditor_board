@@ -19,16 +19,8 @@ flex-direction: row;
 
 `
 export const MainContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-
-
-  
-
-  //justify-content: center;
-  //align-items: center;
-  //pointer-events: none;
-  //background-color: ${({ theme }) => theme.bg0};
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
 `;
