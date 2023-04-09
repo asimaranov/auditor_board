@@ -96,10 +96,11 @@ export const AuditorPage = (props: { address: string }) => {
         <AuditorPageSection>
           <p>Participated contests</p>
           {auditorResult?.competitions.map(x => {
+            console.log('Competition tops', x.id, competitionTops.find(c => c.id == x.id));
             const topPlace = competitionTops.find(c => c.id == x.id)?.top.findIndex(t => t.address == props.address);
             return (
               <div>
-                [{x.id} {guessCompetitionName(x.id)}] {x.amount}<div style={{display: 'inline', color: '#777777'}}>x{x.weight}</div> score. Top – {topPlace} {topPlace ? getMedal(topPlace) : ''}
+                [{x.id} {guessCompetitionName(x.id)}] {x.amount}<div style={{display: 'inline', color: '#777777'}}>x{x.weight}</div> score. Top – {topPlace! + 1} {getMedal(topPlace!)}
               </div>
             );
           }

@@ -77,7 +77,7 @@ export const SbtInfoUpdater = () => {
                 })
                 setCompetitionIds(competitionIds);
                 setAuditorResults(addresses.map(address => userResults[address]));
-                console.log('Ids', ids)
+                competitionIds.map(id => competitionResults[id].top.sort((a, b) => b.amount - a.amount));
                 setCompetitionTops(competitionIds.map(id => competitionResults[id]));
             });
         })
