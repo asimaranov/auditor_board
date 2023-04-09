@@ -2,7 +2,7 @@ import { ScoreBoardCell, ScoreBoardContainer, ScoreBoardHeader, ScoreBoardHeader
 import { useAuditorsResults, useCompetitionIds } from 'state/hooks';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { getMedal } from '@utils/utils';
-import { AuditorLink } from 'components/AuditorLink.tsx';
+import { AuditorLink } from 'components/AuditorLink';
 
 
 export const ScoreBoard = ({ extended, title }: { extended: boolean, title: string }) => {

@@ -1,7 +1,7 @@
 import { useCompetitionTops } from "@state/hooks";
 import { CompetitionsContainer, CompetitionsList } from "./styled"
 import { formatAddress, getMedal, guessCompetitionName } from "@utils/utils";
-import { AuditorLink } from "components/AuditorLink.tsx";
+import { AuditorLink } from "components/AuditorLink";
 
 export const CompetitionsView = () => {
     const [competitionTops, setCompetitionTops] = useCompetitionTops();
