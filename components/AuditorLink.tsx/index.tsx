@@ -1,6 +1,9 @@
 import { formatAddress } from "@utils/utils"
 import { AuditorLinkContainer } from "./styled"
+import Link from "next/link"
 
 export const AuditorLink = ({address}: {address: string}) => {
-    return (<AuditorLinkContainer href={`/auditor/${address}`}>{formatAddress(address)}</AuditorLinkContainer>)
+    return (<AuditorLinkContainer>
+        <Link href="/auditor/[address]" as={`/auditor/${address}`}>
+{formatAddress(address)}</Link></AuditorLinkContainer>)
 }
