@@ -17,7 +17,7 @@ export const ScoreBoardTable = styled.table<{ competitionsNum: number }>`
         ${(props) => `minmax(100px, 0.1fr) `.repeat(props.competitionsNum)}  
         minmax(150px, 0.2fr);
 
-    @media (max-width: 800px) {
+    @media screen and (max-width: 800px) {
         & {
             grid-template-columns: 
                 minmax(80px, 0.1fr)
