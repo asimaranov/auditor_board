@@ -73,6 +73,10 @@ export const AuditorPage = (props: { address: string }) => {
   };
 
   const formatMetadata = (params: string[]) => {
+    if (!params) {
+      return '';
+    }
+    
     const scores = params.map(param => ethers.utils.toUtf8String(param));
 
     if(scores.length == 4) {
