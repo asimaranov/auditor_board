@@ -58,7 +58,8 @@ export const SbtInfoUpdater = () => {
                     const competitionInfo = {
                         id: ids[i],
                         amount: values[i].toNumber(),
-                        weight: tokenData.weight.toNumber()
+                        weight: tokenData.weight.toNumber(),
+                        params: tokenData.params
                     };
 
                     if (!competitionIds.includes(competitionInfo.id))

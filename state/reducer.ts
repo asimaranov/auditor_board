@@ -4,7 +4,8 @@ import { updateAuditorResults, updateCompetitionIds, updateCompetitionTops } fro
 export interface ICompetitionInfo {
     id: number,
     amount: number,
-    weight: number
+    weight: number,
+    params: string[]
 }
 
 export interface IAuditorResult {
