@@ -80,7 +80,7 @@ export const AuditorPage = (props: { address: string }) => {
     const scores = params.map(param => ethers.utils.parseBytes32String(param));
 
     if(scores.length == 4) {
-      return ` ${scores[0]} critical, ${scores[1]} high, ${scores[2]} medium, ${scores[3]} low`
+      return `${scores[0]} critical, ${scores[1]} high, ${scores[2]} medium, ${scores[3]} low`
     } else if (scores.length == 6) {
       return `CTF: ${scores[0]}, Audit: ${scores[1]} | ${scores[2]} critical, ${scores[3]} high, ${scores[4]} medium, ${scores[5]} low`
     }
