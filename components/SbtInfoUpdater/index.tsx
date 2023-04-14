@@ -17,31 +17,43 @@ export const SbtInfoUpdater = () => {
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
     const [competitionTops, setCompetitionTops] = useCompetitionTops();
 
+
     useEffect(() => {
         let eventFilter = sbtContract.filters.TransferSingleStarted()
         sbtContract.queryFilter(eventFilter, 0, 'latest').then(mints => {
             const ids: any[] = [];
             const users: any[] = [];
+            const uniqueUsers: any[] = [];
+
             const values: BigNumber[] = [];
             const userResults: { [address: string]: IAuditorResult } = {};
             const competitionResults: { [id: number]: ICompetitionTop } = {};
 
             const addresses: any[] = [];
             const competitionIds: number[] = [];
+            const seenMints: {[mintId: string]: boolean} = {};
 
             // console.log('Mints', mints)
 
             for (const mint of mints) {
                 const [operator, from, to, id, value] = mint.args!;
+                if (seenMints[`${to}_${id}`]) {
+                    console.log('Seen mint', `${to}_${id}`, value)
+                    continue;
+                };
+
                 ids.push(id.toNumber());
                 users.push(to);
+
+                if(!uniqueUsers.includes(to)) {
+                    uniqueUsers.push(to);
+                }
                 values.push(value);
+                seenMints[`${to}_${id}`] = true;
             }
 
             sbtContract.getTokensData(ids, users).then((tokenDatas: any[]) => {
-                //console.log('Got token data')
                 tokenDatas.forEach((tokenData, i) => {
-                    //console.log('Token data', tokenData);
 
                     const competitionInfo = {
                         id: ids[i],
@@ -62,7 +74,8 @@ export const SbtInfoUpdater = () => {
 
                     const participantInfo = {
                         address: users[i],
-                        amount: values[i].toNumber()
+                        amount: values[i].toNumber(),
+                        weight: tokenData.weight.toNumber()
                     };
 
                     if (!competitionResults[ids[i]]) {
@@ -76,8 +89,8 @@ export const SbtInfoUpdater = () => {
                     }
                 })
                 setCompetitionIds(competitionIds);
-                setAuditorResults(addresses.map(address => userResults[address]));
-                competitionIds.map(id => competitionResults[id].top.sort((a, b) => b.amount - a.amount));
+                setAuditorResults(uniqueUsers.map(address => userResults[address]));
+                competitionIds.map(id => competitionResults[id].top.sort((a, b) => b.amount * b.weight - a.amount * a.weight));
                 setCompetitionTops(competitionIds.map(id => competitionResults[id]));
             });
         })

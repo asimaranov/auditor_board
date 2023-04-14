@@ -15,7 +15,8 @@ export interface IAuditorResult {
 
 export interface ICompetitionTopAuditor {
     address: string,
-    amount: number
+    amount: number,
+    weight: number
 }
 export interface ICompetitionTop {
     id: number,
