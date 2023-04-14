@@ -76,8 +76,8 @@ export const AuditorPage = (props: { address: string }) => {
     if (!params) {
       return '';
     }
-    
-    const scores = params.map(param => ethers.utils.toUtf8String(param));
+
+    const scores = params.map(param => ethers.utils.parseBytes32String(param));
 
     if(scores.length == 4) {
       return ` ${scores[0]} critical, ${scores[1]} high, ${scores[2]} medium ${scores[3]} low`
