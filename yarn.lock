@@ -1699,6 +1699,36 @@
     buffer "6.0.3"
     valtio "1.10.3"
 
+"@web3modal/core@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@web3modal/core/-/core-2.3.0.tgz#49be7831e2afc4fa4c0ba1b310e8e3fe3cd7d26c"
+  integrity sha512-g05JecspH50IdN4mMjCCg24uDKWFyvfqU1mTludfBO+hRpmsfmIdxojPNNmYR/oTxmhiko8nyt1hFoE1vg5A8A==
+  dependencies:
+    buffer "6.0.3"
+    valtio "1.10.4"
+
+"@web3modal/ethereum@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@web3modal/ethereum/-/ethereum-2.3.0.tgz#81fa2d7c087377da0181268a9e06ff05f1efcc6b"
+  integrity sha512-ugm/uv+WMh1NKfv3dxq3rIkmWkxWR2OmsC+FIJ8bGp62H5VRXbSLiOXIqtgC+CQp/RoyX0shzS4WzApbcnvrBA==
+
+"@web3modal/react@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@web3modal/react/-/react-2.3.0.tgz#1552427709e596fb4ec07b81b35c7fed50d7d82d"
+  integrity sha512-lu4ojYwL7+3QtlwtQQKQL0P+V6Gszsg8GwgDQeXkofubjOe5mBiUZSHZcWc8k9VXeIrcT75TSjfdWcmucHcIbg==
+  dependencies:
+    "@web3modal/core" "2.3.0"
+    "@web3modal/standalone" "2.3.0"
+    "@web3modal/ui" "2.3.0"
+
+"@web3modal/standalone@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@web3modal/standalone/-/standalone-2.3.0.tgz#4709a611adc893e07a46b6763861f394f8cf06ad"
+  integrity sha512-O2vfsT83r2UlEYCFEKcIRQLt7XmsAUapazb1rjYr6PWN1hU4FVksWiUwG9UGNoU8lznvaiFiCUNmjje1+4NHgQ==
+  dependencies:
+    "@web3modal/core" "2.3.0"
+    "@web3modal/ui" "2.3.0"
+
 "@web3modal/standalone@^2.2.2":
   version "2.2.2"
   resolved "https://registry.npmjs.org/@web3modal/standalone/-/standalone-2.2.2.tgz"
@@ -1714,6 +1744,16 @@
   dependencies:
     "@web3modal/core" "2.2.2"
     lit "2.6.1"
+    motion "10.15.5"
+    qrcode "1.5.1"
+
+"@web3modal/ui@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@web3modal/ui/-/ui-2.3.0.tgz#3478847f896e70814fbe05d03bf01c3286a52f92"
+  integrity sha512-iXpT4UPwQCxU/+JcqxjNcyBMM5imepmtO47ogbPQkvpZXrjsyiAqxLAXFAbY/W6uoNvGez1sQDtTdzt0umlKyQ==
+  dependencies:
+    "@web3modal/core" "2.3.0"
+    lit "2.7.2"
     motion "10.15.5"
     qrcode "1.5.1"
 
@@ -3691,7 +3731,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lit-element@^3.2.0:
+lit-element@^3.2.0, lit-element@^3.3.0:
   version "3.3.1"
   resolved "https://registry.npmjs.org/lit-element/-/lit-element-3.3.1.tgz"
   integrity sha512-Gl+2409uXWbf7n6cCl7Kzasm7zjT9xmdwi2BhLNi70sRKAgRkqueDu5mSIH3hPYMM0/vqBCdPXod3NbGkRA2ww==
@@ -3715,6 +3755,15 @@ lit@2.6.1:
     "@lit/reactive-element" "^1.6.0"
     lit-element "^3.2.0"
     lit-html "^2.6.0"
+
+lit@2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/lit/-/lit-2.7.2.tgz#8084355a3b834a8e62685f2e641242fd7c1698ce"
+  integrity sha512-9QnZmG5mIKPRja96cpndMclLSi0Qrz2BXD6EbqNqCKMMjOWVm/BwAeXufFk2jqFsNmY07HOzU8X+8aTSVt3yrA==
+  dependencies:
+    "@lit/reactive-element" "^1.6.0"
+    lit-element "^3.3.0"
+    lit-html "^2.7.0"
 
 locate-path@^5.0.0:
   version "5.0.0"
@@ -4991,6 +5040,14 @@ valtio@1.10.3:
   version "1.10.3"
   resolved "https://registry.npmjs.org/valtio/-/valtio-1.10.3.tgz"
   integrity sha512-t3Ez/+baJ+Z5tIyeaI6nCAbW/hrmcq2jditwg/X++o5IvCdiGirQKTOv1kJq0glgUo13v5oABCVGcinggBfiKw==
+  dependencies:
+    proxy-compare "2.5.0"
+    use-sync-external-store "1.2.0"
+
+valtio@1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/valtio/-/valtio-1.10.4.tgz#762647d102f14060111ed21e8afa28f424c2be78"
+  integrity sha512-gqGWh0DjtDMAy8Jaui8ufFoxlQB1k1NiA/QHrpKoTUk9EeY331WKeYhvtGn1u703RcefrDCez7PT+qeCu9lWEw==
   dependencies:
     proxy-compare "2.5.0"
     use-sync-external-store "1.2.0"

@@ -10,11 +10,12 @@ export const competitionNames: {[id: number]: string} = {
     4: 'Sidechain Oracles Contest',
     5: 'Lido Contest'
 }
+
 export const guessCompetitionName = (id: number) => {
     return competitionNames?.[id] || '???';
 }
 
-export const provider = new providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);  // Polygon rpc on alchemy.com
+export const provider = new providers.JsonRpcProvider(`https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`);  // Polygon rpc on alchemy.com
 export const matic = {
   name: 'matic',
   chainId: 137,

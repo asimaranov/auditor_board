@@ -23,3 +23,11 @@ export const NavbarSection = styled.div<{active: boolean}>`
     cursor: pointer;
 
 `
+
+export const ConnectWallet = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    padding: 10px;
+`
