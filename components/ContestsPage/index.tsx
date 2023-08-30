@@ -5,7 +5,7 @@ import { MainContainerSection } from "./styled";
 export const ContestsPage = () => {
     return (
         <MainContainerSection>
-            <ScoreBoard extended={true} title="Competition results"/>
+            <ScoreBoard extended={true} title="Competition results" />
         </MainContainerSection>
     )
 }

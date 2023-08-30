@@ -1,4 +1,5 @@
 import { providers } from "ethers";
+import { useEffect, useState } from "react";
 
 export const getMedal = (top: number) => top == 0 ? '🥇' : top == 1 ? '🥈' : top == 2 ? '🥉' : '';
 export const formatAddress = (x: string) => x.slice(0, 6) + '..' + x.slice(38);
@@ -8,7 +9,9 @@ export const competitionNames: {[id: number]: string} = {
     2: 'Farm Autumn 2022',
     3: 'Moonwell Contest',
     4: 'Sidechain Oracles Contest',
-    5: 'Lido Contest'
+    5: 'Lido Contest',
+    6: 'Farm Spring 2023'
+
 }
 
 export const guessCompetitionName = (id: number) => {
@@ -20,4 +23,14 @@ export const matic = {
   name: 'matic',
   chainId: 137,
   _defaultProvider: (providers: any) => provider
+}
+
+export const useClient = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true)
+  },[])
+
+  return isClient;
 }

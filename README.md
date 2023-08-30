@@ -12,6 +12,7 @@ This is the audior board project that shows global auditors results in the Stron
 - Implement achievements to make more fun for auditors
 - Share your portfolio to social networks
 - Easily mint new SBT
+- Make personal certificate PDF generation
 
 ## Roadmap
 #### Q4 2023

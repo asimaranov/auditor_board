@@ -1,19 +1,19 @@
 import { ScoreBoardCell, ScoreBoardContainer, ScoreBoardHeader, ScoreBoardHeaderCell, ScoreBoardTable } from './styled';
 import { useAuditorsResults, useCompetitionIds } from 'state/hooks';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
-import { getMedal } from '@utils/utils';
+import { getMedal, useClient } from '@utils/utils';
 import { AuditorLink } from 'components/AuditorLink';
-import { useEffect, useState } from 'react';
 
 
 export const ScoreBoard = ({ extended, title }: { extended: boolean, title: string }) => {
     const [auditorResults, setAuditorResults] = useAuditorsResults();
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
+    const isClient = useClient();
 
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 800;
+    const isMobile = isClient && window.innerWidth < 800;
     const competitionsNum = Math.min(isMobile ? 3 : 7, competitionIds.length);
     const hideSocials = extended && isMobile;
-  
+
     return (
         <ScoreBoardContainer suppressHydrationWarning={true}>
             <p>{title}</p>
@@ -39,11 +39,15 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
                             return (
                                 <ScoreBoardCell key={i}>
                                     {foundUserCompetition ?
-                                        (<>{foundUserCompetition.amount}<div style={{ display: 'inline', color: '#999999' }}>x{foundUserCompetition.weight}</div></>) : (<></>)}
+                                        (
+                                            <>{foundUserCompetition.amount}
+                                                <div style={{ display: 'inline', color: '#999999' }}>x{foundUserCompetition.weight}</div>
+                                            </>
+                                        ) : (<></>)
+                                    }
                                 </ScoreBoardCell>
                             )
-                        }
-                        )}
+                        })}
                         <ScoreBoardCell>{x.total.toLocaleString()}</ScoreBoardCell>
                     </ScoreBoardHeader>
                     ))}

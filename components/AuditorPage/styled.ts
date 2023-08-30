@@ -5,9 +5,8 @@ export const AuditorPageContainer = styled.div`
     flex-direction: column;
     padding: 10px;
     align-items: center;
-    height: fit-content;
+    flex: 1;
 `
-
 
 export const AuditorPageSection = styled.div`
     display: flex;

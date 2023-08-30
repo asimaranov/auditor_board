@@ -4,7 +4,7 @@ export const ScoreBoardContainer = styled.div`
     display: flex;   
     flex-direction: column;
     align-items: center; 
-    width: 100%;
+    min-width: 100%;
 `
 
 export const ScoreBoardTable = styled.table<{ competitionsNum: number, displaySocials: boolean }>`

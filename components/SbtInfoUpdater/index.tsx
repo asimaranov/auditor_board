@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import { SBT_ABI } from '@abis/SBT.js';
 import { BigNumber, ethers } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { IAuditorResult, ICompetitionTop } from '@state/reducer';
 import { useAuditorsResults, useCompetitionIds, useCompetitionTops } from '@state/hooks';
 import { provider } from '@utils/utils';
@@ -17,7 +17,6 @@ export const SbtInfoUpdater = () => {
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
     const [competitionTops, setCompetitionTops] = useCompetitionTops();
 
-
     useEffect(() => {
         let eventFilter = sbtContract.filters.TransferSingleStarted()
         sbtContract.queryFilter(eventFilter, 0, 'latest').then(mints => {
@@ -31,7 +30,7 @@ export const SbtInfoUpdater = () => {
 
             const addresses: any[] = [];
             const competitionIds: number[] = [];
-            const seenMints: {[mintId: string]: boolean} = {};
+            const seenMints: { [mintId: string]: boolean } = {};
 
             // console.log('Mints', mints)
 
@@ -45,7 +44,7 @@ export const SbtInfoUpdater = () => {
                 ids.push(id.toNumber());
                 users.push(to);
 
-                if(!uniqueUsers.includes(to)) {
+                if (!uniqueUsers.includes(to)) {
                     uniqueUsers.push(to);
                 }
                 values.push(value);
@@ -80,10 +79,10 @@ export const SbtInfoUpdater = () => {
                     };
 
                     if (!competitionResults[ids[i]]) {
-                        competitionResults[ids[i]] = { 
+                        competitionResults[ids[i]] = {
                             id: ids[i],
                             top: [participantInfo]
-                         };
+                        };
                         addresses.push(users[i]);
                     } else {
                         competitionResults[ids[i]].top.push(participantInfo);
@@ -97,6 +96,7 @@ export const SbtInfoUpdater = () => {
         })
     }, []);
 
-    return (<></>);
-
+    return (
+        <></>
+    );
 }

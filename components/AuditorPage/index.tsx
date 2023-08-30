@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import {
   Chart as ChartJS,
@@ -11,7 +11,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { AuditorPageContainer, AuditorPageSection, ChartWrapper } from './styled';
 import { useAuditorsResults, useCompetitionTops } from '@state/hooks';
 import { getMedal, guessCompetitionName } from '@utils/utils';
@@ -87,7 +87,6 @@ export const AuditorPage = (props: { address: string }) => {
   return (
     <AuditorPageContainer>
       <SbtInfoUpdater />
-
       <AuditorPageSection>
         <p>Auditor statistics: {props.address}</p>
         <p>Global top: {globalTop + 1} {getMedal(globalTop)}. Competition medals: {
@@ -104,11 +103,9 @@ export const AuditorPage = (props: { address: string }) => {
           <Line data={data} options={options}></Line>
         </ChartWrapper>
       </AuditorPageSection>
-
       <AuditorPageSection>
         <p>Participated contests</p>
         {auditorResult?.competitions.map(x => {
-          console.log('Competition tops', x.id, competitionTops.find(c => c.id == x.id));
           const topPlace = competitionTops.find(c => c.id == x.id)?.top.findIndex(t => t.address == props.address);
           return (
             <div style={{ textAlign: 'center' }}>

@@ -11,6 +11,8 @@ import { Web3Modal } from "@web3modal/react";
 import { useEffect } from "react";
 import { store } from "@state/state";
 import { Layout } from "components/Layout";
+import { Navbar } from "components/Navbar";
+import { Footer } from "components/Footer";
 
 const { chains, publicClient } = configureChains(
   [polygon],
@@ -19,7 +21,7 @@ const { chains, publicClient } = configureChains(
 
 const client = createConfig({
   autoConnect: false,
-  connectors: w3mConnectors({ projectId: process.env.NEXT_PUBLIC_WALLECTCONNECT_PROJECT_ID!, version: 1, chains }),
+  connectors: w3mConnectors({ projectId: process.env.NEXT_PUBLIC_WALLECTCONNECT_PROJECT_ID!, version: 2, chains }),
   publicClient
 });
 
@@ -44,7 +46,11 @@ const RootLayout = function RootLayout({
         <Provider store={store}>
           <StyledComponentsRegistry>
             <WagmiConfig config={client}>
-              <Layout>{children}</Layout>
+              <Layout>
+                <Navbar />
+                {children}
+                <Footer />
+              </Layout>
             </WagmiConfig>
           </StyledComponentsRegistry>
         </Provider>
