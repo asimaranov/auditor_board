@@ -3,6 +3,7 @@ import { useAuditorsResults, useCompetitionIds } from 'state/hooks';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { getMedal } from '@utils/utils';
 import { AuditorLink } from 'components/AuditorLink';
+import { useEffect, useState } from 'react';
 
 
 export const ScoreBoard = ({ extended, title }: { extended: boolean, title: string }) => {
@@ -12,9 +13,9 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
     const isMobile = typeof window !== "undefined" && window.innerWidth < 800;
     const competitionsNum = Math.min(isMobile ? 3 : 7, competitionIds.length);
     const hideSocials = extended && isMobile;
-
+  
     return (
-        <ScoreBoardContainer>
+        <ScoreBoardContainer suppressHydrationWarning={true}>
             <p>{title}</p>
             <SbtInfoUpdater />
             <ScoreBoardTable competitionsNum={extended ? competitionsNum : 0} displaySocials={!hideSocials}>
@@ -27,8 +28,8 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
                         <ScoreBoardHeaderCell>Total</ScoreBoardHeaderCell>
                     </ScoreBoardHeader>
                 </thead>
-                <tbody style={{ display: 'contents' }}>
-                    {auditorResults?.slice().sort((x, y) => y.total - x.total).map((x, i) => (<ScoreBoardHeader key={i}>
+                <tbody style={{ display: 'contents' }} suppressHydrationWarning={true}>
+                    {auditorResults?.slice().sort((x, y) => y.total - x.total).map((x, i) => (<ScoreBoardHeader suppressHydrationWarning={true} key={i}>
                         <ScoreBoardCell>{getMedal(i)} {i + 1}</ScoreBoardCell>
                         <ScoreBoardCell><AuditorLink address={x.address} /></ScoreBoardCell>
                         {!hideSocials && (<ScoreBoardCell>{<div>N/A</div>}</ScoreBoardCell>)}

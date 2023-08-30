@@ -1,18 +1,11 @@
-"use client"
+'use client';
 import { ScoreBoard } from "components/ScoreBoard";
-import { MainContainer, MainContainerSection } from "./styled";
-import { Navbar } from "components/Navbar";
+import { MainContainerSection } from "./styled";
 
 export const ContestsPage = () => {
     return (
-        <div>
-            <MainContainer>
-                <Navbar />
-                <MainContainerSection>
-                    <ScoreBoard extended={true} title="Competition results"/>
-                </MainContainerSection>
-            </MainContainer>
-
-        </div>
+        <MainContainerSection>
+            <ScoreBoard extended={true} title="Competition results"/>
+        </MainContainerSection>
     )
 }

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 // import { shallowEqual } from 'react-redux'
 
 
@@ -10,6 +10,16 @@ import { updateAuditorResults, updateCompetitionIds, updateCompetitionTops } fro
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
+const useClient = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true)
+  },[])
+
+  return isClient;
+}
+
 export function useAuditorsResults(): [IAuditorResult[], (auditorResults: IAuditorResult[]) => void] {
   const dispatch = useAppDispatch();
   const auditorHistory = useAppSelector((state) => state.mainReducer.auditorResults);
@@ -19,7 +29,10 @@ export function useAuditorsResults(): [IAuditorResult[], (auditorResults: IAudit
     },
     [dispatch],
   );
-  return [auditorHistory, setAuditorHistory];
+
+  const isClient = useClient();
+
+  return [isClient ? auditorHistory : [], setAuditorHistory];
 }
 
 export function useCompetitionIds(): [number[], (auditorResults: number[]) => void] {
@@ -31,7 +44,10 @@ export function useCompetitionIds(): [number[], (auditorResults: number[]) => vo
       },
       [dispatch],
     );
-    return [competitionIds, setCompetitionIds];
+
+    const isClient = useClient();
+
+    return [isClient ? competitionIds : [], setCompetitionIds];
   }
   
   export function useCompetitionTops(): [ICompetitionTop[], (competitionTops: ICompetitionTop[]) => void] {
@@ -43,6 +59,9 @@ export function useCompetitionIds(): [number[], (auditorResults: number[]) => vo
       },
       [dispatch],
     );
-    return [competitionTops, setCompetitionTops];
+
+    const isClient = useClient();
+
+    return [isClient ? competitionTops : [], setCompetitionTops];
   }
   
