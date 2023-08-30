@@ -3,7 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  output: 'export'
+  compiler: {
+    styledComponents: true,
+  },
 }
 
 module.exports = nextConfig
