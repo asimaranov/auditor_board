@@ -262,7 +262,7 @@ export const AuditorPage = (props: { address: string }) => {
             )}
           </>
         ) : (
-          <p>All NFTS are collected</p>
+          <div>All NFTS are collected</div>
         )}
       </AuditorPageSection>
     </AuditorPageContainer>
