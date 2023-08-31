@@ -18,10 +18,12 @@ import { competitionNames, getMedal, guessCompetitionName } from '@utils/utils';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { ethers } from 'ethers';
 import { useAccount, useContractReads } from 'wagmi';
-import { SBT_ADDRESS } from '@constants/index';
+import { BOUNTY_ADDRESS, SBT_ADDRESS } from '@constants/index';
 import { SBT_ABI } from '@abis/SBT.js';
+import { BOUNTY_ABI } from '@abis/Bouty';
 import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { useRouter } from 'next/navigation';
+import { formatUnits } from 'viem';
 
 ChartJS.register(
   CategoryScale,
@@ -65,7 +67,11 @@ export const AuditorPage = (props: { address: string }) => {
   const [githubUsername, setGithubUsername] = useState('');
   const [collectLoading, setCollectLoading] = useState(false);
   const [saveContactsLoading, setSaveContactsLoading] = useState(false);
+  const [myBountyLoading, setMyBountyLoading] = useState(false);
+
   const [me, setMe] = useState(false);
+  const [pendingBounty, setPendingBounty] = useState<bigint>(BigInt(0));
+
   const router = useRouter();
 
   const competitionsNum = Object.keys(competitionNames).length;
@@ -81,22 +87,33 @@ export const AuditorPage = (props: { address: string }) => {
           Array(competitionsNum * 2).fill(1).map((_, i) => i),
           Array(competitionsNum * 2).fill(props.address)
         ],
-      }]
+      },
+      {
+        address: BOUNTY_ADDRESS,
+        abi: SBT_ABI as any,
+        functionName: 'bounties',
+        args: [props.address],
+      },
+    ]
   });
 
   useEffect(() => {
-    if (!readData || !readData[0] || readData[0].status != 'success') {
-      return;
-    }
-    const pendings = (readData?.[0]?.result as bigint[])
-      ?.map((x, i) => [Number(x), i])
-      .filter(x => x[0] > 0);
+    if (readData && readData[0] && readData[0].status == 'success') {
+      const pendings = (readData?.[0]?.result as bigint[])
+        ?.map((x, i) => [Number(x), i])
+        .filter(x => x[0] > 0);
 
-    setPendingNFTS(pendings.map(x => ({
-      nftId: x[1],
-      competitionName: competitionNames?.[x[1]] || '???',
-      pendingAmount: x[0]
-    })));
+      setPendingNFTS(pendings.map(x => ({
+        nftId: x[1],
+        competitionName: competitionNames?.[x[1]] || '???',
+        pendingAmount: x[0]
+      })));
+    }
+
+    if (readData && readData[1] && readData[1].status == 'success') {
+      setPendingBounty(readData[1].result as bigint);
+    }
+
   }, [readData]);
 
   useEffect(() => {
@@ -160,6 +177,29 @@ export const AuditorPage = (props: { address: string }) => {
       setCollectLoading(false);
     }
   };
+
+  const getMyBounty = async () => {
+    if (!address) {
+      return;
+    }
+
+    try {
+      const config = await prepareWriteContract({
+        address: BOUNTY_ADDRESS,
+        abi: BOUNTY_ABI,
+        functionName: 'getMyBounty',
+        args: [],
+      });
+      setMyBountyLoading(true);
+      const { hash } = await writeContract(config);
+    } catch (e) {
+      // @todo
+      console.log(e)
+    } finally {
+      setMyBountyLoading(false);
+    }
+  };
+
 
   const saveContacts = async () => {
     console.log('Saving')
@@ -263,6 +303,14 @@ export const AuditorPage = (props: { address: string }) => {
           </>
         ) : (
           <div>All NFTS are collected</div>
+        )}
+      </AuditorPageSection>
+      <AuditorPageSection>
+        <p>Pending bounty: {formatUnits(pendingBounty, 18)} USD</p>
+        {pendingBounty > BigInt(0) && props.address == address && (
+          <Button onClick={() => getMyBounty()}>
+            Collect {myBountyLoading && (<DotsLoader />)}
+          </Button>
         )}
       </AuditorPageSection>
     </AuditorPageContainer>
