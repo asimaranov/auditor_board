@@ -111,7 +111,7 @@ export const AuditorPage = (props: { address: string }) => {
     }
 
     if (readData && readData[1] && readData[1].status == 'success') {
-      setPendingBounty(readData[1].result as bigint);
+      setPendingBounty(readData[1].result as unknown as bigint);
     }
 
   }, [readData]);
