@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const AuditorPageContainer = styled.div`
     display: flex;
@@ -22,4 +22,60 @@ export const ChartWrapper = styled.div`
     max-height: 300px;
     width: 100%;
     justify-content: center;
+`
+
+export const Socials = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+`
+
+export const SocialsForm = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`
+export const Button = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    margin: 10px;
+    padding: 10px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`
+
+const dots = keyframes`
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: black;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 black;
+    }
+`;
+
+export const DotsLoader = styled.div`
+  &:after {
+    content: ' .';
+    animation: ${dots} 1s steps(5, end) infinite;
+  }
 `

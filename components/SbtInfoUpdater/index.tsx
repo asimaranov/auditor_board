@@ -5,9 +5,10 @@ import { useEffect } from 'react';
 import { IAuditorResult, ICompetitionTop } from '@state/reducer';
 import { useAuditorsResults, useCompetitionIds, useCompetitionTops } from '@state/hooks';
 import { provider } from '@utils/utils';
+import { SBT_ADDRESS } from '@constants/index';
 
 const sbtContract = new ethers.Contract(
-    '0x45782146489271c135969c9d58fe5c73d3445808',
+    SBT_ADDRESS,
     SBT_ABI,
     provider
 )
