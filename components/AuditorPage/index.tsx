@@ -18,12 +18,14 @@ import { competitionNames, getMedal, guessCompetitionName } from '@utils/utils';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { ethers } from 'ethers';
 import { useAccount, useContractReads } from 'wagmi';
-import { BOUNTY_ADDRESS, SBT_ADDRESS } from '@constants/index';
+import { BOUNTY_ADDRESS, CONTACTS_STORE, SBT_ADDRESS } from '@constants/index';
 import { SBT_ABI } from '@abis/SBT.js';
+import { CONTACTS_STORE_ABI } from '@abis/ContactsStore';
 import { BOUNTY_ABI } from '@abis/Bouty';
 import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { useRouter } from 'next/navigation';
-import { formatUnits } from 'viem';
+import { formatUnits, stringToHex, hexToString } from 'viem';
+import { parseBytes32String } from 'ethers/lib/utils';
 
 ChartJS.register(
   CategoryScale,
@@ -94,8 +96,23 @@ export const AuditorPage = (props: { address: string }) => {
         functionName: 'bounties',
         args: [props.address],
       },
+      {
+        address: CONTACTS_STORE,
+        abi: CONTACTS_STORE_ABI as any,
+        functionName: 'getContacts',
+        args: [
+          address as string,
+          [
+            stringToHex('telegram', { size: 32 }),
+            stringToHex('twitter', { size: 32 }),
+            stringToHex('github', { size: 32 })
+          ]
+        ],
+      },
     ]
   });
+
+  const [telegram, twitter, github] = (readData?.[2].result as `0x${string}`[])?.map(x => parseBytes32String(x)) ?? [];
 
   useEffect(() => {
     if (readData && readData[0] && readData[0].status == 'success') {
@@ -114,6 +131,14 @@ export const AuditorPage = (props: { address: string }) => {
       setPendingBounty(readData[1].result as unknown as bigint);
     }
 
+    if (!telegramUsername)
+      setTelegramUsername(telegram);
+
+    if (!twitterUsername)
+      setTwitterUsername(twitter);
+
+    if (!githubUsername)
+      setTwitterUsername(github);
   }, [readData]);
 
   useEffect(() => {
@@ -202,16 +227,24 @@ export const AuditorPage = (props: { address: string }) => {
 
 
   const saveContacts = async () => {
-    console.log('Saving')
     if (!address) {
       return;
     }
     try {
       const config = await prepareWriteContract({
-        address: SBT_ADDRESS,
-        abi: SBT_ABI,
-        functionName: 'saveContacts',
-        args: [['telegram', 'twitter', 'github'], [telegramUsername, twitterUsername, githubUsername]],
+        address: CONTACTS_STORE,
+        abi: CONTACTS_STORE_ABI,
+        functionName: 'setContacts',
+        args: [
+          [
+            stringToHex('telegram', { size: 32 }),
+            stringToHex('twitter', { size: 32 }),
+            stringToHex('github', { size: 32 })
+          ], [
+            stringToHex(telegramUsername, { size: 32 }),
+            stringToHex(twitterUsername, { size: 32 }),
+            stringToHex(githubUsername, { size: 32 }),
+          ]],
       });
       setSaveContactsLoading(true);
       const { hash } = await writeContract(config);
@@ -253,13 +286,31 @@ export const AuditorPage = (props: { address: string }) => {
           );
         }
         )}
-        <AuditorPageSection>
-          <p>Contacts</p>
-          <Socials>
-            <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-            <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-          </Socials>
-        </AuditorPageSection>
+        {
+          (telegram || github || twitter) && (
+            <AuditorPageSection>
+              <p>Contacts</p>
+              <Socials>
+                {telegram && (
+                  <a href={`https://t.me/${telegram}`}>
+                    <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                  </a>
+                )}
+                {twitter && (
+                  <a href={`https://twitter.com/${twitter}`}>
+                    <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                  </a>
+                )}
+                {github && (
+                  <a href={`https://github.com/${github}`}>
+                    <img src='/icons/github.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                  </a>
+                )}
+              </Socials>
+            </AuditorPageSection>
+          )
+        }
+
       </AuditorPageSection>
       {
         props.address == address && (
@@ -270,15 +321,15 @@ export const AuditorPage = (props: { address: string }) => {
                 <div>
                   <Socials>
                     <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                    <input type="text" onChange={(x) => setTelegramUsername(x.target.value)} />
+                    <input type="text" value={telegramUsername} onChange={(x) => setTelegramUsername(x.target.value)} />
                   </Socials>
                   <Socials>
                     <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                    <input type="text" onChange={(x) => setTwitterUsername(x.target.value)} />
+                    <input type="text" value={twitterUsername} onChange={(x) => setTwitterUsername(x.target.value)} />
                   </Socials>
                   <Socials>
                     <img src='/icons/github.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                    <input type="text" onChange={(x) => setGithubUsername(x.target.value)} />
+                    <input type="text" value={githubUsername} onChange={(x) => setGithubUsername(x.target.value)} />
                   </Socials>
                 </div>
                 <Button onClick={() => saveContacts()}>
