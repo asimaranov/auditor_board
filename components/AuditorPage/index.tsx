@@ -101,7 +101,7 @@ export const AuditorPage = (props: { address: string }) => {
         abi: CONTACTS_STORE_ABI as any,
         functionName: 'getContacts',
         args: [
-          address as string,
+          props.address,
           [
             stringToHex('telegram', { size: 32 }),
             stringToHex('twitter', { size: 32 }),
@@ -224,7 +224,6 @@ export const AuditorPage = (props: { address: string }) => {
       setMyBountyLoading(false);
     }
   };
-
 
   const saveContacts = async () => {
     if (!address) {
