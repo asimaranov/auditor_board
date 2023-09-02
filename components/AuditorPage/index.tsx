@@ -18,7 +18,7 @@ import { competitionNames, getMedal, guessCompetitionName, useClient } from '@ut
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { ethers } from 'ethers';
 import { useAccount, useContractReads } from 'wagmi';
-import { BOUNTY_ADDRESS, CONTACTS_STORE, SBT_ADDRESS } from '@constants/index';
+import { BOUNTY_ADDRESS, CONTACTS_STORE, FAUCET_ADDRESS, SBT_ADDRESS } from '@constants/index';
 import { SBT_ABI } from '@abis/SBT.js';
 import { CONTACTS_STORE_ABI } from '@abis/ContactsStore';
 import { BOUNTY_ABI } from '@abis/Bouty';
@@ -26,6 +26,7 @@ import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { useRouter } from 'next/navigation';
 import { formatUnits, stringToHex, hexToString } from 'viem';
 import { parseBytes32String } from 'ethers/lib/utils';
+import { FAUCET_ABI } from '@abis/Faucet';
 
 ChartJS.register(
   CategoryScale,
@@ -68,6 +69,9 @@ export const AuditorPage = (props: { address: string }) => {
   const [twitterUsername, setTwitterUsername] = useState('');
   const [githubUsername, setGithubUsername] = useState('');
   const [collectLoading, setCollectLoading] = useState(false);
+  const [airdropLoading, setAirdropLoading] = useState(false);
+  const [airdropError, setAirdropError] = useState('');
+
   const [saveContactsLoading, setSaveContactsLoading] = useState(false);
   const [myBountyLoading, setMyBountyLoading] = useState(false);
   const [me, setMe] = useState(false);
@@ -79,7 +83,8 @@ export const AuditorPage = (props: { address: string }) => {
 
   const competitionsNum = Object.keys(competitionNames).length;
   const {
-    data: readData
+    data: readData,
+    refetch
   } = useContractReads({
     contracts: [
       {
@@ -108,6 +113,14 @@ export const AuditorPage = (props: { address: string }) => {
             stringToHex('twitter', { size: 32 }),
             stringToHex('github', { size: 32 })
           ]
+        ],
+      },
+      {
+        address: FAUCET_ADDRESS,
+        abi: FAUCET_ABI as any,
+        functionName: 'auditorParticipated',
+        args: [
+          props.address,
         ],
       },
     ]
@@ -286,6 +299,27 @@ export const AuditorPage = (props: { address: string }) => {
           );
         }
         )}
+        {props.address == address && !readData?.[3].result && (
+          <AuditorPageSection>
+            <p>Airdrop</p>
+            Not collected: 0.05 MATIC
+            <Button onClick={async () => {
+              setAirdropLoading(true);
+              const airdropRequest = await fetch(`/api/faucet?auditor=${address}&nftId=${auditorResult?.competitions[0].id}`);
+              const airdropJson = await airdropRequest.json();
+              setAirdropLoading(false);
+
+              if (airdropJson.error)
+                setAirdropError(airdropJson.error.error.reason);
+              else
+                refetch();
+            }}>
+              Collect {airdropLoading && (<DotsLoader />)}
+              {airdropError && (<><br /><p>Error: {airdropError}</p></>)}
+            </Button>
+          </AuditorPageSection>
+        )}
+
         {
           (isClient && (telegram || github || twitter)) && (
             <AuditorPageSection>

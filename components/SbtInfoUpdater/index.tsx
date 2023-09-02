@@ -110,7 +110,6 @@ export const SbtInfoUpdater = () => {
 
             for (const contactInfo of contacts) {
                 const [auditor, socialNetwork, contact] = contactInfo.args!;
-                console.log(auditor, socialNetwork, contact);
                 let auditorMap = newContacts[auditor] ?? {};     
                 auditorMap[utils.parseBytes32String(socialNetwork)] = utils.parseBytes32String(contact);
                 newContacts[auditor] = auditorMap;
