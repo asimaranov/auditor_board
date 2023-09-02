@@ -3,7 +3,7 @@ import { ethers, providers } from 'ethers'
 import { NextResponse } from 'next/server'
 import { FAUCET_ABI } from '@abis/Faucet';
 
-export const provider = new providers.JsonRpcProvider(`https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`);
+const provider = new providers.JsonRpcProvider(`https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_POLYGON_API_KEY}`);
 const signer = new ethers.Wallet(process.env.FAUCET_PRIVATE_KEY!, provider);
 
 export async function GET(request: Request) {
