@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { updateAuditorResults, updateCompetitionIds, updateCompetitionTops } from './actions';
+import { updateAuditorResults, updateCompetitionIds, updateCompetitionTops, updateAuditorContacts } from './actions';
 
 export interface ICompetitionInfo {
     id: number,
@@ -24,19 +24,24 @@ export interface ICompetitionTop {
     top: ICompetitionTopAuditor[]
 }
 
+export interface IAuditorContacts {
+    [auditor: string]: {[socialNetwork: string]: string}
+}
+
+
 export interface AuditorHistoryState {
     auditorResults: IAuditorResult[]
     competitionIds: number[]
-    competitionTops: ICompetitionTop[]
-  }
-  
-  export const initialState: AuditorHistoryState = {
-        auditorResults: [],
-        competitionIds: [],
-        competitionTops: []
-  };
-  
+    competitionTops: ICompetitionTop[],
+    auditorContacts: IAuditorContacts
+}
 
+export const initialState: AuditorHistoryState = {
+    auditorResults: [],
+    competitionIds: [],
+    competitionTops: [],
+    auditorContacts: {}
+};
 export default createReducer(initialState, (builder) => {
     builder.addCase(updateAuditorResults, (state, { payload: { auditorResults } }) => {
         state.auditorResults = auditorResults;
@@ -49,5 +54,9 @@ export default createReducer(initialState, (builder) => {
     builder.addCase(updateCompetitionTops, (state, { payload: { competitionTops } }) => {
         state.competitionTops = competitionTops;
     });
-    }
+
+    builder.addCase(updateAuditorContacts, (state, { payload: { auditorContacts } }) => {
+        state.auditorContacts = auditorContacts;
+    });
+}
 );

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAuditorResult, ICompetitionTop } from './reducer';
+import { IAuditorContacts, IAuditorResult, ICompetitionTop } from './reducer';
 
 
 export const updateAuditorResults = createAction<{ auditorResults: IAuditorResult[] }>(
@@ -7,10 +7,13 @@ export const updateAuditorResults = createAction<{ auditorResults: IAuditorResul
 );
 
 export const updateCompetitionIds = createAction<{ competitionIds: number[] }>(
-    'competitionIds/update',
-  );
-  
+  'competitionIds/update',
+);
+
 export const updateCompetitionTops = createAction<{ competitionTops: ICompetitionTop[] }>(
-    'competitionTops/update',
-  );
-  
+  'competitionTops/update',
+);
+
+export const updateAuditorContacts = createAction<{ auditorContacts: IAuditorContacts }>(
+  'auditorContacts/update',
+);

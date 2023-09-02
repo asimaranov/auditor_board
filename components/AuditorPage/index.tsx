@@ -14,7 +14,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import { AuditorPageContainer, AuditorPageSection, ChartWrapper, Button, Socials, SocialsForm, DotsLoader } from './styled';
 import { useAuditorsResults, useCompetitionTops } from '@state/hooks';
-import { competitionNames, getMedal, guessCompetitionName } from '@utils/utils';
+import { competitionNames, getMedal, guessCompetitionName, useClient } from '@utils/utils';
 import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { ethers } from 'ethers';
 import { useAccount, useContractReads } from 'wagmi';
@@ -70,9 +70,10 @@ export const AuditorPage = (props: { address: string }) => {
   const [collectLoading, setCollectLoading] = useState(false);
   const [saveContactsLoading, setSaveContactsLoading] = useState(false);
   const [myBountyLoading, setMyBountyLoading] = useState(false);
-
   const [me, setMe] = useState(false);
   const [pendingBounty, setPendingBounty] = useState<bigint>(BigInt(0));
+
+  const isClient = useClient();
 
   const router = useRouter();
 
@@ -138,7 +139,7 @@ export const AuditorPage = (props: { address: string }) => {
       setTwitterUsername(twitter);
 
     if (!githubUsername)
-      setTwitterUsername(github);
+      setGithubUsername(github);
   }, [readData]);
 
   useEffect(() => {
@@ -286,7 +287,7 @@ export const AuditorPage = (props: { address: string }) => {
         }
         )}
         {
-          (telegram || github || twitter) && (
+          (isClient && (telegram || github || twitter)) && (
             <AuditorPageSection>
               <p>Contacts</p>
               <Socials>

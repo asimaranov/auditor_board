@@ -10,9 +10,15 @@ export const Navbar = () => {
   
   return (
     <NavbarContainer>
-      <Link href='/'><NavbarSection active={pathname == '/'}>Main</NavbarSection></Link>
-      <Link href='/contests'><NavbarSection active={pathname == '/contests'}>Contests</NavbarSection></Link>
-      <Link href={`/auditor/${address ? address : 'me'}`}><NavbarSection active={pathname == `/auditor/${address}`}>Me</NavbarSection></Link>
+      <Link href='/'>
+        <NavbarSection active={pathname == '/'}>Main</NavbarSection>
+      </Link>
+      <Link href='/contests'>
+        <NavbarSection active={pathname == '/contests'}>Contests</NavbarSection>
+      </Link>
+      <Link href={`/auditor/${address ? address : 'me'}`}>
+        <NavbarSection active={pathname == `/auditor/${address ? address : 'me'}`}>Me</NavbarSection>
+      </Link>
       <ConnectWallet>
         <Web3Button />
       </ConnectWallet>

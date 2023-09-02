@@ -1,11 +1,12 @@
 'use client';
 import { SBT_ABI } from '@abis/SBT.js';
-import { BigNumber, ethers } from 'ethers';
+import { BigNumber, ethers, utils } from 'ethers';
 import { useEffect } from 'react';
-import { IAuditorResult, ICompetitionTop } from '@state/reducer';
-import { useAuditorsResults, useCompetitionIds, useCompetitionTops } from '@state/hooks';
+import { IAuditorContacts, IAuditorResult, ICompetitionTop } from '@state/reducer';
+import { useAuditorContacts, useAuditorsResults, useCompetitionIds, useCompetitionTops } from '@state/hooks';
 import { provider } from '@utils/utils';
-import { SBT_ADDRESS } from '@constants/index';
+import { CONTACTS_STORE, SBT_ADDRESS } from '@constants/index';
+import { CONTACTS_STORE_ABI } from '@abis/ContactsStore';
 
 const sbtContract = new ethers.Contract(
     SBT_ADDRESS,
@@ -13,10 +14,17 @@ const sbtContract = new ethers.Contract(
     provider
 )
 
+const contactsContract = new ethers.Contract(
+    CONTACTS_STORE,
+    CONTACTS_STORE_ABI,
+    provider
+)
+
 export const SbtInfoUpdater = () => {
     const [auditorResults, setAuditorResults] = useAuditorsResults();
     const [competitionIds, setCompetitionIds] = useCompetitionIds();
     const [competitionTops, setCompetitionTops] = useCompetitionTops();
+    const [auditorContacts, setAuditorContacts] = useAuditorContacts();
 
     useEffect(() => {
         let eventFilter = sbtContract.filters.TransferSingleStarted()
@@ -94,6 +102,23 @@ export const SbtInfoUpdater = () => {
                 competitionIds.map(id => competitionResults[id].top.sort((a, b) => b.amount * b.weight - a.amount * a.weight));
                 setCompetitionTops(competitionIds.map(id => competitionResults[id]));
             });
+        })
+
+        let setContractFilter = contactsContract.filters.ConactSet();
+        contactsContract.queryFilter(setContractFilter, 0, 'latest').then(contacts => {
+            const newContacts: IAuditorContacts = {};
+
+            for (const contactInfo of contacts) {
+                const [auditor, socialNetwork, contact] = contactInfo.args!;
+                console.log(auditor, socialNetwork, contact);
+                let auditorMap = newContacts[auditor] ?? {};     
+                auditorMap[utils.parseBytes32String(socialNetwork)] = utils.parseBytes32String(contact);
+                newContacts[auditor] = auditorMap;
+            }
+
+            console.log('Setting contacts', newContacts);
+
+            setAuditorContacts(newContacts);
         })
     }, []);
 
