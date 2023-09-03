@@ -71,6 +71,7 @@ export const AuditorPage = (props: { address: string }) => {
   const [collectLoading, setCollectLoading] = useState(false);
   const [airdropLoading, setAirdropLoading] = useState(false);
   const [airdropError, setAirdropError] = useState('');
+  const [airdropTxHash, setAirdropTxHash] = useState('');
 
   const [saveContactsLoading, setSaveContactsLoading] = useState(false);
   const [myBountyLoading, setMyBountyLoading] = useState(false);
@@ -123,10 +124,8 @@ export const AuditorPage = (props: { address: string }) => {
           props.address,
         ],
       },
-    ]
+    ],
   });
-
-  console.log('Airddrop status', readData?.[3].result);
 
   const [telegram, twitter, github] = (readData?.[2].result as `0x${string}`[])?.map(x => parseBytes32String(x)) ?? [];
 
@@ -313,12 +312,13 @@ export const AuditorPage = (props: { address: string }) => {
 
               if (airdropJson.error)
                 setAirdropError(airdropJson.error.error.reason);
-              else
-                refetch();
+              else 
+                setAirdropTxHash(airdropJson.hash);
             }}>
-              Collect {airdropLoading && (<DotsLoader />)}
+              {!airdropTxHash && (<>Collect {airdropLoading && (<DotsLoader />)}</>)}
               {airdropError && (<><br /><p>Error: {airdropError}</p></>)}
             </Button>
+            {airdropTxHash && (<>Tx hash: {airdropTxHash}</>)}
           </AuditorPageSection>
         )}
 

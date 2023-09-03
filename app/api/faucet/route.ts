@@ -20,7 +20,7 @@ export async function GET(request: Request) {
   const feeData = await provider.getFeeData()
 
   try {
-  const receipt = await faucetContract.requestAirdrop(
+  const gas = faucetContract.estimateGas.requestAirdrop(
     auditor,
     nftId,
     {
@@ -28,12 +28,17 @@ export async function GET(request: Request) {
     }
   );
 
-  console.log(receipt);
+  const receipt = await faucetContract.requestAirdrop(
+    auditor,
+    nftId,
+    {
+      gasPrice: feeData.gasPrice  // Otherwise transaction stucks in polygon
+    }
+  );
+
   return NextResponse.json({error: null, ...receipt})
 
   } catch (e) {
-    console.log('Errrrr', e);
     return NextResponse.json({error: e})
-  
   }
 }
