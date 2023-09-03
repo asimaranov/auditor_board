@@ -304,7 +304,7 @@ export const AuditorPage = (props: { address: string }) => {
         {props.address == address && !readData?.[3].result && (
           <AuditorPageSection>
             <p>Airdrop</p>
-            Not collected: 0.05 MATIC
+            Not collected: 0.093 MATIC
             <Button onClick={async () => {
               setAirdropLoading(true);
               const airdropRequest = await fetch(`/api/faucet?auditor=${address}&nftId=${auditorResult?.competitions[0].id}`);
