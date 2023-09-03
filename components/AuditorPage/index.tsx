@@ -126,6 +126,8 @@ export const AuditorPage = (props: { address: string }) => {
     ]
   });
 
+  console.log('Airddrop status', readData?.[3].result);
+
   const [telegram, twitter, github] = (readData?.[2].result as `0x${string}`[])?.map(x => parseBytes32String(x)) ?? [];
 
   useEffect(() => {

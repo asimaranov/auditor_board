@@ -104,14 +104,19 @@ export const SbtInfoUpdater = () => {
             });
         })
 
-        let setContractFilter = contactsContract.filters.ConactSet();
+        let setContractFilter = contactsContract.filters.ContactsSet();
         contactsContract.queryFilter(setContractFilter, 0, 'latest').then(contacts => {
             const newContacts: IAuditorContacts = {};
 
             for (const contactInfo of contacts) {
-                const [auditor, socialNetwork, contact] = contactInfo.args!;
+                console.log('Queried contacts', contactInfo.args);
+                const [auditor, socialNetworks, contacts] = contactInfo.args!;
                 let auditorMap = newContacts[auditor] ?? {};     
-                auditorMap[utils.parseBytes32String(socialNetwork)] = utils.parseBytes32String(contact);
+
+                for (let i = 0; i < socialNetworks.length; i++) {
+                    auditorMap[utils.parseBytes32String(socialNetworks[i])] = utils.parseBytes32String(contacts[i]);
+                }
+
                 newContacts[auditor] = auditorMap;
             }
 
