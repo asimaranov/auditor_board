@@ -109,12 +109,11 @@ export const SbtInfoUpdater = () => {
             const newContacts: IAuditorContacts = {};
 
             for (const contactInfo of contacts) {
-                console.log('Queried contacts', contactInfo.args);
                 const [auditor, socialNetworks, contacts] = contactInfo.args!;
                 let auditorMap = newContacts[auditor] ?? {};     
 
                 for (let i = 0; i < socialNetworks.length; i++) {
-                    auditorMap[utils.parseBytes32String(socialNetworks[i])] = utils.parseBytes32String(contacts[i]);
+                    auditorMap[utils.parseBytes32String(socialNetworks[i])] = utils.parseBytes32String(contacts[i]).replace('@', '');
                 }
 
                 newContacts[auditor] = auditorMap;
