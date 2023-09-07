@@ -17,8 +17,11 @@ export const CompetitionsView = () => {
                             x.top.slice()
                                 .sort((a, b) => b.amount - a.amount)
                                 .slice(0, 3)
-                                .map((u, place) => (<p>{getMedal(place)
-                                } <AuditorLink address={u.address}></AuditorLink> – {u.amount.toLocaleString()} </p>))
+                                .map((u, place) => (
+                                    <p key={place}>{
+                                        getMedal(place)
+                                    } <AuditorLink address={u.address}></AuditorLink> – {u.amount.toLocaleString()} </p>
+                                ))
                         }</p><br />
                         </p>)
                     )}

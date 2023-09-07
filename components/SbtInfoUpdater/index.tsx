@@ -123,7 +123,7 @@ export const SbtInfoUpdater = () => {
 
             setAuditorContacts(newContacts);
         })
-    }, []);
+    }, [setAuditorResults, setCompetitionIds, setCompetitionTops, setAuditorContacts]);
 
     return (
         <></>

@@ -4,6 +4,7 @@ import { SbtInfoUpdater } from 'components/SbtInfoUpdater';
 import { getMedal, useClient } from '@utils/utils';
 import { AuditorLink } from 'components/AuditorLink';
 import { Socials } from 'components/AuditorPage/styled';
+import Image from 'next/image';
 
 
 export const ScoreBoard = ({ extended, title }: { extended: boolean, title: string }) => {
@@ -27,7 +28,9 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
                         <ScoreBoardHeaderCell>#</ScoreBoardHeaderCell>
                         <ScoreBoardHeaderCell>Address</ScoreBoardHeaderCell>
                         {!hideSocials && (<ScoreBoardHeaderCell>Socials</ScoreBoardHeaderCell>)}
-                        {extended && competitionIds?.slice(-competitionsNum).map(x => (<ScoreBoardHeaderCell>{x}</ScoreBoardHeaderCell>))}
+                        {extended && competitionIds?.slice(-competitionsNum).map((x, i) => (
+                            <ScoreBoardHeaderCell key={i}>{x}</ScoreBoardHeaderCell>
+                        ))}
                         <ScoreBoardHeaderCell>Total</ScoreBoardHeaderCell>
                     </ScoreBoardHeader>
                 </thead>
@@ -37,26 +40,23 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
                         <ScoreBoardCell><AuditorLink address={x.address} /></ScoreBoardCell>
                         {!hideSocials && (
                             <ScoreBoardCell>
-                                
                                 <Socials>
-                                {auditorContacts?.[x.address]?.['telegram'] && (
-                                  <a href={`https://t.me/${auditorContacts?.[x.address]?.['telegram']}`}>
-                                    <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                                  </a>
-                                )}
-                                {auditorContacts?.[x.address]?.['twitter'] && (
-                                  <a href={`https://twitter.com/${auditorContacts?.[x.address]?.['twitter']}`}>
-                                    <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                                  </a>
-                                )}
-                                {auditorContacts?.[x.address]?.['github'] && (
-                                  <a href={`https://github.com/${auditorContacts?.[x.address]?.['github']}`}>
-                                    <img src='/icons/github.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
-                                  </a>
-                                )}
-                              </Socials>
-                
-
+                                    {auditorContacts?.[x.address]?.['telegram'] && (
+                                        <a href={`https://t.me/${auditorContacts?.[x.address]?.['telegram']}`}>
+                                            <Image src='/icons/telegram.svg' alt='Telegram' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                                        </a>
+                                    )}
+                                    {auditorContacts?.[x.address]?.['twitter'] && (
+                                        <a href={`https://twitter.com/${auditorContacts?.[x.address]?.['twitter']}`}>
+                                            <Image src='/icons/twitter.svg' alt='Twitter' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                                        </a>
+                                    )}
+                                    {auditorContacts?.[x.address]?.['github'] && (
+                                        <a href={`https://github.com/${auditorContacts?.[x.address]?.['github']}`}>
+                                            <Image src='/icons/github.svg' alt='Github' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                                        </a>
+                                    )}
+                                </Socials>
                             </ScoreBoardCell>
                         )}
 

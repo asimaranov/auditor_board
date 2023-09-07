@@ -27,6 +27,7 @@ import { useRouter } from 'next/navigation';
 import { formatUnits, stringToHex, hexToString } from 'viem';
 import { parseBytes32String } from 'ethers/lib/utils';
 import { FAUCET_ABI } from '@abis/Faucet';
+import Image from 'next/image';
 
 ChartJS.register(
   CategoryScale,
@@ -154,7 +155,7 @@ export const AuditorPage = (props: { address: string }) => {
 
     if (!githubUsername)
       setGithubUsername(github);
-  }, [readData]);
+  }, [readData, github, githubUsername, telegram, telegramUsername, twitter, twitterUsername]);
 
   useEffect(() => {
     // Wallet changed while user in me section
@@ -162,7 +163,7 @@ export const AuditorPage = (props: { address: string }) => {
       router.push(`/auditor/${address ? address : 'me'}`)
     }
     setMe(props.address == 'me' || address == props.address);
-  }, [address]);
+  }, [address, me, props.address, router]);
 
   const auditorResult = auditorResults.find(x => x.address == props.address);
   const globalTop = auditorResults?.slice().sort((x, y) => y.total - x.total).findIndex(x => x.address == props.address);
@@ -329,17 +330,17 @@ export const AuditorPage = (props: { address: string }) => {
               <Socials>
                 {telegram && (
                   <a href={`https://t.me/${telegram}`}>
-                    <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/telegram.svg' alt='Telegram' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                   </a>
                 )}
                 {twitter && (
                   <a href={`https://twitter.com/${twitter}`}>
-                    <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/twitter.svg' alt='Twitter' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                   </a>
                 )}
                 {github && (
                   <a href={`https://github.com/${github}`}>
-                    <img src='/icons/github.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/github.svg' alt='Github' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                   </a>
                 )}
               </Socials>
@@ -356,15 +357,15 @@ export const AuditorPage = (props: { address: string }) => {
               <SocialsForm>
                 <div>
                   <Socials>
-                    <img src='/icons/telegram.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/telegram.svg' alt='Telegram' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                     <input type="text" value={telegramUsername} onChange={(x) => setTelegramUsername(x.target.value)} />
                   </Socials>
                   <Socials>
-                    <img src='/icons/twitter.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/twitter.svg' alt='Twitter' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                     <input type="text" value={twitterUsername} onChange={(x) => setTwitterUsername(x.target.value)} />
                   </Socials>
                   <Socials>
-                    <img src='/icons/github.svg' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></img>
+                    <Image src='/icons/github.svg' alt='Github' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                     <input type="text" value={githubUsername} onChange={(x) => setGithubUsername(x.target.value)} />
                   </Socials>
                 </div>
@@ -381,7 +382,7 @@ export const AuditorPage = (props: { address: string }) => {
         <p>Pending NFTS</p>
         {pendingNFTS?.length ? (
           <>
-            {pendingNFTS?.map(x => (<u>{x.competitionName}: {x.pendingAmount}</u>))}
+            {pendingNFTS?.map((x, i) => (<u key={i}>{x.competitionName}: {x.pendingAmount}</u>))}
             {props.address == address && (
               <Button onClick={() => acceptTokenBatch()}>
                 Collect {collectLoading && (<DotsLoader />)}
