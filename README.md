@@ -49,7 +49,7 @@ To deploy application using docker, run
 
 ## Env variables
 
-Should be stored in `.env` file like described in .env.example
+Should be stored in `.env` file like described in `.env.example`
 
 - `NEXT_PUBLIC_POLYGON_API_KEY`\
 Alchemy api key for polygon mainnet. Can be created on https://dashboard.alchemy.com/
