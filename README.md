@@ -46,3 +46,16 @@ To run application using NodeJS, run
 To deploy application using docker, run 
 - `docker build -t auditor-board .`
 - `docker run -p 3000:3000 auditor-board`
+
+## Env variables
+
+Should be stored in `.env` file like described in .env.example
+
+- `NEXT_PUBLIC_POLYGON_API_KEY`\
+Alchemy api key for polygon mainnet. Can be created on https://dashboard.alchemy.com/
+
+- `NEXT_PUBLIC_WALLECTCONNECT_PROJECT_ID`\
+Walletconnect project api key. Can be created on https://cloud.walletconnect.com/app
+
+- `FAUCET_PRIVATE_KEY`\
+Private key with MATIC balance to create airdrop transactions. Highly recommended to create new private key for this purpose
