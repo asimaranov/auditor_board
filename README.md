@@ -12,15 +12,15 @@ This is the audior board project that shows global auditors results in the Stron
 - Implement achievements to make more fun for auditors
 - Share your portfolio to social networks
 - Easily mint new SBT
-- Make personal certificate PDF generation
+- Generate personal certificate PDF
 
 ## Roadmap
 #### Q4 2023
 - Move current `Contests` page to `Global Stats` page
 - Make `Contests` page where all the contests are listed
 - Make page for every contest with it's results
-- Allow auditors to add their telegram, twitter, github to the auditor's page. Add share (copy link or tweet) button to auditor and contest pages
-- Implement smartcontract to store auditor's social links
+- Allow auditors to add their telegram, twitter, github to the auditor's page. Add share (copy link or tweet) button to auditor and contest pages [DONE]
+- Implement smartcontract to store auditor's social links [DONE]
 - Calculate global DAO statistics e.g. total number of reported bugs by all the users
 
 #### Q1 2024
@@ -31,3 +31,18 @@ This is the audior board project that shows global auditors results in the Stron
 - Redesign in Figma
 - Propose new features to display
 - Pull requests are welcome
+
+
+# Deployment
+## Vercel
+Just add repo to the Vercel workspace and it's automatically deployed updated
+
+## NodeJS
+To run application using NodeJS, run 
+- `yarn next build`
+- `yarn next start`
+
+## Docker
+To deploy application using docker, run 
+- `docker build -t auditor-board .`
+- `docker run -p 3000:3000 auditor-board`
