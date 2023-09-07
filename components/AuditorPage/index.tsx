@@ -330,17 +330,17 @@ export const AuditorPage = (props: { address: string }) => {
               <Socials>
                 {telegram && (
                   <a href={`https://t.me/${telegram}`}>
-                    <Image src='/icons/telegram.svg' alt='Telegram' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/telegram.svg' alt='Telegram' width={16} height={16} style={{ cursor: 'pointer' }}></Image>
                   </a>
                 )}
                 {twitter && (
                   <a href={`https://twitter.com/${twitter}`}>
-                    <Image src='/icons/twitter.svg' alt='Twitter' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/twitter.svg' alt='Twitter' width={16} height={16} style={{ cursor: 'pointer' }}></Image>
                   </a>
                 )}
                 {github && (
                   <a href={`https://github.com/${github}`}>
-                    <Image src='/icons/github.svg' alt='Github' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/github.svg' alt='Github' width={16} height={16} style={{ cursor: 'pointer' }}></Image>
                   </a>
                 )}
               </Socials>
@@ -357,15 +357,15 @@ export const AuditorPage = (props: { address: string }) => {
               <SocialsForm>
                 <div>
                   <Socials>
-                    <Image src='/icons/telegram.svg' alt='Telegram' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/telegram.svg' alt='Telegram' width={16} height={16} style={{ cursor: 'pointer' }}></Image>
                     <input type="text" value={telegramUsername} onChange={(x) => setTelegramUsername(x.target.value)} />
                   </Socials>
                   <Socials>
-                    <Image src='/icons/twitter.svg' alt='Twitter' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/twitter.svg' alt='Twitter' width={16} height={16} style={{ cursor: 'pointer' }}></Image>
                     <input type="text" value={twitterUsername} onChange={(x) => setTwitterUsername(x.target.value)} />
                   </Socials>
                   <Socials>
-                    <Image src='/icons/github.svg' alt='Github' style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
+                    <Image src='/icons/github.svg' alt='Github' width={16} height={16} style={{ width: '16px', height: '16px', cursor: 'pointer' }}></Image>
                     <input type="text" value={githubUsername} onChange={(x) => setGithubUsername(x.target.value)} />
                   </Socials>
                 </div>

@@ -5,7 +5,7 @@ import { load, save } from 'redux-localstorage-simple';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import mainReducer from './reducer';
 
-const IGNORED_KEYS: string[] = ['canvas', 'wallet'];
+const IGNORED_KEYS: string[] = [];
 const PERSISTED_KEYS: string[] = [];
 
 export const store = configureStore({
