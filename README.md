@@ -35,7 +35,7 @@ This is the audior board project that shows global auditors results in the Stron
 
 ## Deployment
 ### Vercel
-Just add repo to the Vercel workspace and it's automatically deployed updated
+Just add repo to the Vercel workspace and it's automatically deployed and updated
 
 ### NodeJS
 To run application using NodeJS, run 
