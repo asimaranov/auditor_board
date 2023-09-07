@@ -1,6 +1,6 @@
 This is the audior board project that shows global auditors results in the Stronghold DAO (ex. MixBytes Camp) and shows info from auditor's SoulBound Token
-[Stronghold DAO Twitter](https://twitter.com/stronghold_dao)
-[Stronghold DAO Website](https://strongholdsec.io/)
+[Stronghold DAO Twitter](https://twitter.com/stronghold_dao)\
+[Stronghold DAO Website](https://strongholdsec.io/)\
 [More info about SBT](https://twitter.com/MixBytes/status/1643629493922287618?s=20)
 
 ## Goals of the project
@@ -33,16 +33,16 @@ This is the audior board project that shows global auditors results in the Stron
 - Pull requests are welcome
 
 
-# Deployment
-## Vercel
+## Deployment
+### Vercel
 Just add repo to the Vercel workspace and it's automatically deployed updated
 
-## NodeJS
+### NodeJS
 To run application using NodeJS, run 
 - `yarn next build`
 - `yarn next start`
 
-## Docker
+### Docker
 To deploy application using docker, run 
 - `docker build -t auditor-board .`
 - `docker run -p 3000:3000 auditor-board`
