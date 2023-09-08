@@ -49,6 +49,8 @@ export const Button = styled.p`
     &:hover {
         text-decoration: underline;
     }
+
+    background: #6c7ae022;
 `
 
 const dots = keyframes`
