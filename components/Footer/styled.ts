@@ -8,8 +8,9 @@ export const FooterContainer = styled.div`
     background-color: black;
     align-items: center;
     gap: 15px;
-    padding-left: 10px;
+    padding-left: 30px;
     color: white;
+    white-space: nowrap;
 `
 
 export const FooterSection = styled.div<{active: boolean}>`
