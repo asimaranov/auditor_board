@@ -16,7 +16,7 @@ export const ScoreBoard = ({ extended, title }: { extended: boolean, title: stri
 
     const isMobile = isClient && window.innerWidth < 800;
     const competitionsNum = Math.min(isMobile ? 3 : 7, competitionIds.length);
-    const hideSocials = extended || isMobile;
+    const hideSocials = extended;
 
     return (
         <ScoreBoardContainer suppressHydrationWarning={true}>
