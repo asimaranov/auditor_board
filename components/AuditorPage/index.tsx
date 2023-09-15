@@ -100,7 +100,7 @@ export const AuditorPage = (props: { address: string }) => {
       },
       {
         address: BOUNTY_ADDRESS,
-        abi: SBT_ABI as any,
+        abi: BOUNTY_ABI as any,
         functionName: 'bounties',
         args: [props.address],
       },
