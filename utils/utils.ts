@@ -11,7 +11,7 @@ export const competitionNames: {[id: number]: string} = {
     4: 'Sidechain Oracles Contest',
     5: 'Lido Contest',
     6: 'Farm Spring 2023',
-    7: 'Fathom contest'
+    7: 'Fathom Contest'
 
 }
 
