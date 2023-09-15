@@ -394,7 +394,7 @@ export const AuditorPage = (props: { address: string }) => {
         )}
       </AuditorPageSection>
       <AuditorPageSection>
-        <p>Pending bounty: {formatUnits(pendingBounty, 18)} USD</p>
+        <p>Pending bounty: {formatUnits(pendingBounty, 6)} USD</p>
         {pendingBounty > BigInt(0) && props.address == address && (
           <Button onClick={() => getMyBounty()}>
             Collect {myBountyLoading && (<DotsLoader />)}
