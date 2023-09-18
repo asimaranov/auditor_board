@@ -2,11 +2,11 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    outputStandalone: true,
   },
   compiler: {
     styledComponents: true,
   },
+  output: 'standalone'
 }
 
 module.exports = nextConfig
