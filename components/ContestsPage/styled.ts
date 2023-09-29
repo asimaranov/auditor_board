@@ -14,4 +14,6 @@ flex-direction: row;
     align-items: center;
   }
 }
+min-width: 100%;
+justify-content: center;
 `
