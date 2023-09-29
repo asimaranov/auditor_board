@@ -4,10 +4,9 @@ export const MainContainerSection = styled.div`
     flex: 1;
     margin: 10px;
     gap: 20px;
-
     display: flex;
-
     flex-direction: row;
+    justify-content: center;
 
     @media screen and (max-width: 800px) {
         & {
